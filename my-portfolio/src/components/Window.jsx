@@ -107,26 +107,6 @@ export default function Window({ title, onClose, children, initialPosition = { x
         maxHeight: 'calc(100vh - 60px)'
       } : undefined}
     >
-      <style>
-        {`
-          @keyframes wiggle {
-            0% { transform: translate(6px, 6px) rotate(2deg); }
-            10% { transform: translate(-6px, -6px) rotate(-2deg); }
-            20% { transform: translate(-8px, 0px) rotate(2deg); }
-            30% { transform: translate(8px, 6px) rotate(0deg); }
-            40% { transform: translate(4px, -4px) rotate(2deg); }
-            50% { transform: translate(-4px, 6px) rotate(-2deg); }
-            60% { transform: translate(-8px, 2px) rotate(0deg); }
-            70% { transform: translate(8px, 2px) rotate(-2deg); }
-            80% { transform: translate(-4px, -4px) rotate(2deg); }
-            90% { transform: translate(4px, 6px) rotate(0deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
-          }
-          .animate-wiggle {
-            animation: wiggle 0.5s ease-in-out;
-          }
-        `}
-      </style>
 
       {/* Barre de titre */}
       <div 
