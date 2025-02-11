@@ -29,7 +29,7 @@ export default function Home() {
                         {/* Lecteur audio */}
                         <div className="bg-black p-2 rounded" aria-label="Lecteur audio">
                             <audio controls className="w-full custom-audio">
-                                <source src="/public/musiques/song.mp3" type="audio/mpeg" />
+                                <source src="/musiques/song.mp3" type="audio/mpeg" />
                                 Votre navigateur ne supporte pas l'élément audio.
                             </audio>
                         </div>
@@ -377,7 +377,7 @@ export default function Home() {
                             </div>
 
                             {/* Lecteur audio pour le son "Wizz" */}
-                            <audio id="wizz-audio" src="/public/musiques/wizz.mp3" style={{ display: 'none' }} />
+                            <audio id="wizz-audio" src="/musiques/wizz.mp3" style={{ display: 'none' }} />
                         </div>
                     </div>
                 );
@@ -403,7 +403,7 @@ export default function Home() {
                             <a href="https://yellow-studio.vercel.app/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Yellow Studio ~</h2>
                                 <img
-                                    src="/public/images/logoyellow.png"
+                                    src="/images/logoyellow.png"
                                     alt="yellow studio"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
@@ -427,7 +427,7 @@ export default function Home() {
                             <a href="https://www.surete-ferroviaire.sncf.com/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Sûrete SNCF ~</h2>
                                 <img
-                                    src="/public/images/sncf-logo.png"
+                                    src="/images/sncf-logo.png"
                                     alt="SNCF SURETEé"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
@@ -453,7 +453,7 @@ export default function Home() {
                             <a href="https://www.lesmouettesvertes.fr/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Les Mouettes Vertes ~</h2>
                                 <img
-                                    src="/public/images/logo-lmv.png"
+                                    src="/images/logo-lmv.png"
                                     alt="Nutrition & Santé"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
@@ -478,7 +478,7 @@ export default function Home() {
                             <a href="https://www.nutritionetsante-foodservice.fr/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Nutrition & Santé ~</h2>
                                 <img
-                                    src="/public/images/logons.png"
+                                    src="/images/logons.png"
                                     alt="Nutrition & Santé"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
@@ -504,7 +504,7 @@ export default function Home() {
                             <a href="https://www.britline.com/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Crédit Agricole Britline ~</h2>
                                 <img
-                                    src="/public/images/logo.png"
+                                    src="/images/logo.png"
                                     alt="Nutrition & Santé"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
@@ -526,7 +526,7 @@ export default function Home() {
                             <a href="https://www.nissannow.be/fr-BE/home" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                                 <h2 className="text-xl text-pink-500">~ Nissan Now ~</h2>
                                 <img
-                                    src="/public/images/logo-nissan.png"
+                                    src="/images/logo-nissan.png"
                                     alt="Nissan Now"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
