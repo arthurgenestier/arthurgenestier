@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import XPDesktopIcon from './XPDesktopIcon';
 
-export default function Window({ title, onClose, children, initialPosition = { x: 100, y: 100 }, isWizzing = false }) {
+export default function Window({ title, icon, onClose, onMinimize, onActivate, isMinimized = false, children, initialPosition = { x: 100, y: 100 }, isWizzing = false }) {
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [resizeDirection, setResizeDirection] = useState('');
@@ -95,9 +96,10 @@ export default function Window({ title, onClose, children, initialPosition = { x
 
   return (
     <div 
-      className={`absolute bg-white shadow-lg rounded-t-lg ${
+      className={`absolute flex flex-col overflow-hidden border-2 border-[#0c4a9b] bg-[#ece9d8] shadow-[2px_2px_8px_rgba(0,0,0,0.55)] rounded-t-lg ${isMinimized ? 'hidden' : ''} ${
         isMaximized ? 'fixed inset-0' : ''
       } ${isWizzing ? 'animate-wiggle' : ''}`}
+      onMouseDown={onActivate}
       style={!isMaximized ? { 
         left: window.innerWidth < 640 ? 10 : position.x, 
         top: window.innerWidth < 640 ? 50 : position.y,
@@ -109,20 +111,31 @@ export default function Window({ title, onClose, children, initialPosition = { x
     >
 
       {/* Barre de titre */}
-      <div 
-        className="bg-gradient-to-r from-[#0058B4] to-[#3C9BF7] text-white px-3 py-1 rounded-t-lg flex items-center cursor-move"
+      <div
+        className="min-h-8 px-1.5 py-1 border-b border-[#073b85] bg-gradient-to-b from-[#3e8be9] via-[#176bd2] to-[#0753b2] text-white flex items-center cursor-move select-none"
         onMouseDown={handleMouseDown}
+        onDoubleClick={() => setIsMaximized(!isMaximized)}
       >
-        <div className="flex-1">{title}</div>
-        <div className="flex gap-2">
-          <button className="hover:bg-[#3C9BF7] px-2">_</button>
-          <button onClick={() => setIsMaximized(!isMaximized)} className="hover:bg-[#3C9BF7] px-2">□</button>
-          <button onClick={onClose} className="hover:bg-red-500 px-2">×</button>
+        <XPDesktopIcon name={icon} className="h-5 w-5 shrink-0 drop-shadow" />
+        <div className="flex-1 truncate px-1.5 text-[13px] font-bold [text-shadow:1px_1px_1px_#17427b]">{title}</div>
+        <div className="flex shrink-0 items-center gap-[3px]" onMouseDown={(event) => event.stopPropagation()} onDoubleClick={(event) => event.stopPropagation()}>
+          <button type="button" onClick={onMinimize} aria-label={`Réduire ${title}`} title="Réduire" className="inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[4px] border border-[#c8def5] bg-gradient-to-b from-[#78b7f2] to-[#2265bf] text-white shadow-[inset_0_1px_#d7edff] hover:brightness-110 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white">
+            <span aria-hidden="true" className="inline-block h-[2px] w-2.5 bg-white" />
+          </button>
+          <button type="button" onClick={() => setIsMaximized(!isMaximized)} aria-label={isMaximized ? `Restaurer ${title}` : `Agrandir ${title}`} title={isMaximized ? 'Restaurer' : 'Agrandir'} className="inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[4px] border border-[#c8def5] bg-gradient-to-b from-[#78b7f2] to-[#2265bf] text-white shadow-[inset_0_1px_#d7edff] hover:brightness-110 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white">
+            <span aria-hidden="true" className="block h-2.5 w-2.5 border-2 border-white" />
+          </button>
+          <button type="button" onClick={onClose} aria-label={`Fermer ${title}`} title="Fermer" className="inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[4px] border border-[#f8aaa2] bg-gradient-to-b from-[#f88d78] to-[#ca2721] text-white shadow-[inset_0_1px_#ffd7ce] hover:brightness-110 focus-visible:outline focus-visible:outline-1 focus-visible:outline-white">
+            <span aria-hidden="true" className="relative block h-3 w-3">
+              <span className="absolute left-0 top-1/2 h-[2px] w-3 -translate-y-1/2 rotate-45 bg-white" />
+              <span className="absolute left-0 top-1/2 h-[2px] w-3 -translate-y-1/2 -rotate-45 bg-white" />
+            </span>
+          </button>
         </div>
       </div>
 
       {/* Contenu avec scroll */}
-      <div className="overflow-y-auto bg-black" style={{ height: 'calc(100% - 32px)' }}>
+      <div className="min-h-0 flex-1 overflow-y-auto bg-black">
         {children}
       </div>
 

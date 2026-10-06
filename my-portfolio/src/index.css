@@ -40,3 +40,72 @@
 .animate-wiggle {
     animation: wiggle 0.5s ease-in-out infinite;
 }
+
+.xp-boot-screen {
+    isolation: isolate;
+    transform-origin: center;
+    animation:
+        xp-crt-on 240ms ease-out,
+        xp-boot-fade 380ms ease-in 4.08s forwards;
+}
+
+.xp-boot-screen::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 2px,
+        rgb(255 255 255 / 3%) 3px,
+        transparent 4px
+    );
+    content: '';
+    pointer-events: none;
+}
+
+.xp-boot-progress {
+    animation: xp-boot-progress 1.15s ease-in-out infinite;
+}
+
+@keyframes xp-crt-on {
+    0% {
+        opacity: 0;
+        transform: scaleY(0.01);
+    }
+    35% {
+        opacity: 1;
+        transform: scaleY(0.01);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+@keyframes xp-boot-progress {
+    from {
+        transform: translateX(-110%);
+    }
+    to {
+        transform: translateX(310%);
+    }
+}
+
+@keyframes xp-boot-fade {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .xp-boot-screen {
+        animation: xp-boot-fade 100ms linear 150ms forwards;
+    }
+
+    .xp-boot-progress {
+        animation: none;
+        transform: translateX(100%);
+    }
+}

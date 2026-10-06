@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Window from '../components/Window';
+import XPDesktopIcon from '../components/XPDesktopIcon';
 
 export default function Home() {
     const [windows, setWindows] = useState([]);
@@ -7,6 +8,13 @@ export default function Home() {
     const [startMenuOpen, setStartMenuOpen] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isWizzing, setIsWizzing] = useState(false);
+    const [isBooting, setIsBooting] = useState(true);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const bootTimer = window.setTimeout(() => setIsBooting(false), prefersReducedMotion ? 300 : 4550);
+        return () => window.clearTimeout(bootTimer);
+    }, []);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -19,11 +27,14 @@ export default function Home() {
         {
             id: 'about',
             name: "À propos",
-            icon: "ℹ️",
             content: (
                 <div className="bg-black text-pink-500 p-4" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
                     {/* En-tête MySpace style */}
                     <div className="text-center mb-6 border-b-2 border-pink-500 pb-4">
+                        <div className="mb-4 flex items-center justify-between border border-blue-400 bg-gradient-to-r from-[#003399] to-[#6699cc] px-3 py-1 text-left text-sm text-white shadow">
+                            <strong className="text-lg">MyArthurSpace</strong>
+                            <span>Accueil | Profil | Musique</span>
+                        </div>
                         <h1 className="text-3xl font-bold animate-pulse">~*~ Arthur Genestier ~*~</h1>
                         <p className="text-blue-400 animate-bounce">★≣≣≣≣≣≣≣≣≣≣≣≣≣≣≣★</p>
                         {/* Lecteur audio */}
@@ -39,8 +50,8 @@ export default function Home() {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="border-2 border-pink-500 p-4 rounded">
                             <h2 className="text-xl mb-2 text-blue-400">♪ À propos de moi ♪</h2>
-                            <p>♥ Status: Développeur Front-End & Intégrateur Web</p>
-                            <p>♥ Ici depuis: 2024</p>
+                            <p>♥ Poste: Développeur Front-End, Intégrateur & Webmaster</p>
+                            <p>♥ Webmaster chez BERNER depuis avril 2025</p>
                             <p>♥ Mood: Coding 💻 & Designing 🎨</p>
 
                             <div className="flex justify-center mb-4">
@@ -54,10 +65,10 @@ export default function Home() {
 
                         <div className="border-2 border-pink-500 p-4 rounded">
                             <h2 className="text-xl mb-2 text-blue-400">♪ Expertise ♪</h2>
-                            <p>♥ WordPress: Création de thèmes sur mesure, développement de plugins, optimisation des performances et du référencement.</p>
-                            <p>♥ Intégration Web: Maîtrise de HTML5, CSS3, JavaScript (ES6), SCSS, et des frameworks comme Bootstrap et Tailwind CSS.</p>
-                            <p>♥ UI/UX Design: Conception d'interfaces utilisateur intuitives et responsives, prototypage avec des outils comme Figma et Adobe XD.</p>
-                            <p>♥ Accessibilité: Implémentation des normes WCAG pour des sites web accessibles à tous.</p>
+                            <p>♥ WordPress : création de thèmes sur mesure, développement de plugins et optimisation des performances et du référencement.</p>
+                            <p>♥ Intégration web : maîtrise de HTML5, CSS3, JavaScript (ES6), SCSS et de frameworks comme Bootstrap et Tailwind CSS.</p>
+                            <p>♥ UI/UX design : conception d'interfaces intuitives et adaptatives, prototypage avec Figma et Adobe XD.</p>
+                            <p>♥ Accessibilité : application des recommandations WCAG pour concevoir des sites accessibles à tous.</p>
                         </div>
                     </div>
 
@@ -67,53 +78,54 @@ export default function Home() {
                         <div className="text-center">
                             <div className="border-2 border-pink-500 p-2">
                                 <p className="text-white">
-                                    En tant que développeur front-end spécialisé en WordPress, j'ai acquis une solide expérience dans la création de thèmes personnalisés et l'optimisation de sites web. Mon expertise en intégration web me permet de transformer des designs en interfaces utilisateur fonctionnelles et performantes. Je suis passionné par le développement de solutions innovantes et je suis toujours à la recherche de nouveaux défis pour mettre à profit mes compétences en UI/UX design et en développement web.
+                                    Développeur front-end et webmaster, je crée et optimise des pages web en portant une attention particulière à l'expérience utilisateur, à la conversion et au référencement naturel. Depuis avril 2025, je travaille chez BERNER sur les contenus marketing avec SmartEdit (CMS SAP), l'optimisation de pages et le blog WordPress.
                                 </p>
                                 <p className="text-white mt-2">
-                                    Mon parcours m'a permis de travailler sur des projets variés, allant de la création de sites vitrines pour des PME à la mise en place de boutiques en ligne complexes. J'accorde une importance particulière à l'accessibilité et à l'optimisation des performances, afin de garantir une expérience utilisateur optimale.
+                                    Mon parcours m'a permis de travailler sur des projets web variés, de l'intégration front-end à la gestion de contenu. J'accorde une importance particulière à l'accessibilité, à la qualité éditoriale et à l'optimisation des performances.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Commentaires simulés */}
-                    <div className="mt-6 border-t-2 border-pink-500 pt-4">
-                        <h2 className="text-xl text-blue-400 mb-4">♪ Commentaires ♪</h2>
-                        <div className="bg-gray-900 p-3 mb-2 rounded">
-                            <p className="text-white">Super dev! Continue comme ça! <span className="text-pink-500">xXx</span></p>
-                            <p className="text-xs text-gray-400">Posted by Fake.js - 2024</p>
-                        </div>
-                        <div className="bg-gray-900 p-3 mb-2 rounded">
-                            <p className="text-white">Arthur a vraiment le souci du détail et livre toujours un travail impeccable. <span className="text-pink-500">yYy</span></p>
-                            <p className="text-xs text-gray-400">Posted by ClientSatisfait - 2024</p>
-                        </div>
-                    </div>
                 </div>
             )
         },
         {
             id: 'skills',
             name: "Profil",
-            icon: "⚙️",
             content: (
-                <div className="bg-gradient-to-b from-blue-900 to-black text-white p-4" style={{ fontFamily: 'Times New Roman, serif' }}>
+                <div className="min-h-full bg-[#eaf1f8] p-4 text-[#1d3652]" style={{ fontFamily: 'Georgia, Times New Roman, serif' }}>
                     {/* En-tête style Encarta */}
-                    <div className="text-center mb-6 border-b border-blue-500 pb-4">
-                        <h1 className="text-3xl font-serif">Arthur Genestier</h1>
-                        <p className="text-blue-300 text-sm">© 2024 Développeur Front-End</p>
+                    <div className="mb-5 border border-[#8aa9c9] bg-gradient-to-r from-[#164678] via-[#3675ac] to-[#164678] px-4 py-3 text-center shadow-inner">
+                        <p className="mb-1 text-left text-xs font-bold text-[#d5e7f7]">GENESTIERPÉDIA | DOSSIER PROFESSIONNEL</p>
+                        <h1 className="text-3xl font-serif text-white">Arthur Genestier</h1>
+                            <p className="text-sm text-[#d5e7f7]">© 2026 Développeur front-end, intégrateur & webmaster</p>
+                    </div>
+
+                    <div className="mb-4 border-y-2 border-[#d1ad54] bg-[#dce8f4] px-3 py-2 text-xs font-bold text-[#334f6c]">
+                        ARTICLE DE RÉFÉRENCE | PARCOURS PROFESSIONNEL
                     </div>
 
                     {/* Contenu Principal */}
                     <div className="space-y-4">
                         {/* Section Expérience */}
-                        <div className="bg-blue-900/30 p-4 rounded border border-blue-800">
-                            <h2 className="text-xl text-blue-300 font-serif mb-3 border-b border-blue-700 pb-2">
+                        <div className="border border-[#a9bfd4] bg-white p-4 shadow-sm">
+                            <h2 className="mb-3 border-b border-[#d2b65b] pb-2 text-xl font-serif text-[#164678]">
                                 [Expérience Professionnelle]
                             </h2>
                             <div className="pl-4">
-                                <h3 className="text-lg text-blue-200 mb-2">Mindoza (2022-2024)</h3>
-                                <p className="text-blue-100 italic mb-2">Développeur Front End - Spécialisation WordPress</p>
-                                <ul className="list-disc pl-6 space-y-2 text-gray-300">
+                                <h3 className="mb-2 text-lg text-[#23486c]">BERNER (avril 2025 - aujourd'hui)</h3>
+                                <p className="mb-2 italic text-[#405f7d]">Webmaster</p>
+                                <ul className="mb-6 list-disc space-y-2 pl-6 text-[#354b61]">
+                                    <li>Création et mise à jour de contenus marketing avec SmartEdit (CMS SAP)</li>
+                                    <li>Refonte et optimisation de pages marketing dans un objectif de conversion</li>
+                                    <li>Optimisation du référencement naturel lors de la création de pages</li>
+                                    <li>Optimisation de tableaux JavaScript liés à la création de pages</li>
+                                    <li>Gestion du blog WordPress et refonte des pages d'articles</li>
+                                </ul>
+                                <h3 className="mb-2 text-lg text-[#23486c]">Mindoza (2022-2024)</h3>
+                                <p className="mb-2 italic text-[#405f7d]">Développeur front-end - spécialisation WordPress</p>
+                                <ul className="list-disc space-y-2 pl-6 text-[#354b61]">
                                     <li>Développement de thèmes personnalisés et optimisation WordPress</li>
                                     <li>Application des technologies front-end : HTML, CSS, JavaScript, jQuery, Twig, Bootstrap</li>
                                     <li>Optimisation des performances et du référencement</li>
@@ -122,157 +134,42 @@ export default function Home() {
                             </div>
                         </div>
 
-                        {/* Section Certifications */}
-                        <div className="bg-blue-900/30 p-4 rounded border border-blue-800">
-                            <h2 className="text-xl text-blue-300 font-serif mb-3 border-b border-blue-700 pb-2">
-                                [Certifications]
+                        <div className="border border-[#a9bfd4] bg-white p-4 shadow-sm">
+                            <h2 className="mb-3 border-b border-[#d2b65b] pb-2 text-xl font-serif text-[#164678]">
+                                [Compétences Techniques]
                             </h2>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="p-3">
-                                    <h3 className="text-blue-200">O&apos;Clock Integrally</h3>
-                                    <p className="text-gray-300">2021 - Développement Front-end</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <h3 className="mb-2 text-[#23486c]">Développement web</h3>
+                                    <p className="text-[#354b61]">HTML5, CSS3, SCSS, JavaScript, PHP, React, Vue.js</p>
                                 </div>
-                                <div className="p-3">
-                                    <h3 className="text-blue-200">Opquast</h3>
-                                    <p className="text-gray-300">2021 - Qualité Web</p>
+                                <div>
+                                    <h3 className="mb-2 text-[#23486c]">Frameworks & outils</h3>
+                                    <p className="text-[#354b61]">Bootstrap, Tailwind CSS, Git</p>
+                                </div>
+                                <div>
+                                    <h3 className="mb-2 text-[#23486c]">CMS</h3>
+                                    <p className="text-[#354b61]">WordPress, Drupal, PrestaShop, SAP SmartEdit</p>
+                                </div>
+                                <div>
+                                    <h3 className="mb-2 text-[#23486c]">Autres</h3>
+                                    <p className="text-[#354b61]">SEO, accessibilité (WCAG), UI/UX, SQL</p>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Section Compétences */}
-                        <div className="bg-blue-900/30 p-4 rounded border border-blue-800">
-                            <h2 className="text-xl text-blue-300 font-serif mb-3 border-b border-blue-700 pb-2">
-                                [Compétences Techniques]
+                        <div className="border border-[#a9bfd4] bg-white p-4 shadow-sm">
+                            <h2 className="mb-3 border-b border-[#d2b65b] pb-2 text-xl font-serif text-[#164678]">
+                                [Certifications]
                             </h2>
-                            <div className="space-y-4">
-                                {/* Thème : Développement Web */}
-                                <div>
-                                    <h3 className="text-blue-200">Développement Web</h3>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3">
-                                            <p className="text-gray-300">HTML5</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-full"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">CSS</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-full"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">SCSS</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-full"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">JavaScript</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">PHP</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">React</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-1/2"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">Vue.js</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-1/2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="p-3">
+                                    <h3 className="text-[#23486c]">O&apos;Clock Integrally</h3>
+                                    <p className="text-[#354b61]">2021 - Développement Front-end</p>
                                 </div>
-
-                                {/* Thème : Frameworks & Outils */}
-                                <div>
-                                    <h3 className="text-blue-200">Frameworks & Outils</h3>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3">
-                                            <p className="text-gray-300">Bootstrap</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-full"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">Tailwind CSS</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">Git</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Thème : CMS */}
-                                <div>
-                                    <h3 className="text-blue-200">CMS</h3>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3">
-                                            <p className="text-gray-300">WordPress</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-full"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">Drupal</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">PrestaShop</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-1/2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Thème : Autres */}
-                                <div>
-                                    <h3 className="text-blue-200">Autres</h3>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3">
-                                            <p className="text-gray-300">Accessibilité (WCAG)</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-full"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">SEO</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">UI/UX Design</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-3/4"></div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3">
-                                            <p className="text-gray-300">SQL</p>
-                                            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                <div className="bg-blue-600 h-2.5 rounded-full w-1/2"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="p-3">
+                                    <h3 className="text-[#23486c]">Opquast</h3>
+                                    <p className="text-[#354b61]">2021 - Qualité Web</p>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +182,6 @@ export default function Home() {
         {
             id: 'contact',
             name: "Contact",
-            icon: "✉️",
             content: (() => {
                 const handleWizz = () => {
                     const audio = document.getElementById('wizz-audio');
@@ -296,22 +192,28 @@ export default function Home() {
                 };
 
                 return (
-                    <div className="bg-gradient-to-b from-[#B5D4EF] to-[#86B5E3] p-4 h-full" style={{ fontFamily: 'Segoe UI, Arial, sans-serif' }}>
+                    <div className="h-full border-x border-white/70 bg-gradient-to-b from-[#c2def5] via-[#a8cfee] to-[#80b4df] p-4" style={{ fontFamily: 'Segoe UI, Arial, sans-serif' }}>
                         <div className={isWizzing ? 'wizz-animation' : ''}>
                             {/* En-tête MSN */}
-                            <div className="bg-white rounded-t-lg p-3 shadow-md">
+                            <div className="mb-2 overflow-hidden border border-[#6e91b3] bg-white shadow-md">
+                                <div className="flex items-center justify-between border-b border-[#4c79a4] bg-gradient-to-r from-[#286299] to-[#82b5df] px-3 py-1 text-sm font-semibold text-white">
+                                    <span>Messeng&apos;Arthur</span>
+                                    <span className="text-xs font-normal">Conversation</span>
+                                </div>
+                                <div className="p-3">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-green-500 text-xl" aria-hidden="true">●</span>
+                                    <span className="inline-block h-3 w-3 rounded-full border border-[#397c26] bg-gradient-to-b from-[#a6e478] to-[#43a522] shadow-sm" aria-label="En ligne" />
                                     <span className="font-semibold">Arthur Genestier</span>
                                     <span className="text-gray-500 text-sm">(En ligne)</span>
                                 </div>
                                 <div className="text-sm text-gray-600 mt-1 italic">
                                     &quot;Développeur Front-End disponible pour de nouveaux projets 💻&quot;
                                 </div>
+                                </div>
                             </div>
 
                             {/* Fenêtre de conversation */}
-                            <div className="bg-white p-4 shadow-md border border-gray-200 h-[calc(100%-120px)]">
+                            <div className="h-[calc(100%-120px)] border border-[#7898b7] bg-white p-4 shadow-md">
                                 <div className="bg-[#E8F0F8] p-3 rounded-lg mb-4">
                                     <p className="text-[#0E62A7] font-semibold mb-2">Arthur dit :</p>
                                     <p className="mb-2">Bonjour ! 👋</p>
@@ -362,12 +264,12 @@ export default function Home() {
                             </div>
 
                             {/* Barre d'outils MSN */}
-                            <div className="bg-[#F0F0F0] p-2 rounded-b-lg border-t border-gray-300 flex justify-between items-center">
+                            <div className="flex items-center justify-between border border-[#839eb8] border-t-[#fff] bg-gradient-to-b from-[#f7f8fa] to-[#d6e0eb] p-2">
                                 <div className="flex gap-2">
                                     <button
                                         onClick={handleWizz}
                                         disabled={isWizzing}
-                                        className={`px-3 py-1 rounded bg-[#0E62A7] text-white hover:bg-[#0D4F8C]
+                                        className={`border border-[#7b9bb9] bg-gradient-to-b from-[#fff] to-[#d9e7f3] px-3 py-1 text-[#244e75] shadow-sm hover:from-white hover:to-[#c5ddf1]
                                             transition-colors ${isWizzing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                         aria-label="Envoyer un Wizz"
                                     >
@@ -387,18 +289,60 @@ export default function Home() {
         {
             id: 'projects',
             name: "Mes Projets",
-            icon: "📁",
             content: (
-                <div className="bg-black text-white" style={{ fontFamily: 'Arial, sans-serif' }}>
+                <div className="bg-[#100d15] text-white" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
                     {/* Header Skyblog style */}
-                    <div className="bg-pink-500 text-center p-4 mb-6">
+                    <div className="mb-6 border-b-4 border-[#8d0549] bg-gradient-to-r from-[#ea1687] via-[#ff53aa] to-[#cc076b] p-4 text-center shadow-lg">
+                        <p className="mb-1 text-xs text-white/90">MON BLOG DE PROJETS</p>
                         <h1 className="text-2xl font-bold">♥ Mes Projets ♥</h1>
                     </div>
 
                     {/* Articles style Skyblog */}
-                    <div className="space-y-8">
+                    <div className="space-y-8 border-x-4 border-pink-600 px-4 py-2">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
+                            <div className="bg-white p-4 mb-4">
+                                <img
+                                    src="https://blog.berner.eu/wp-content/uploads/2023/04/berner-logo-2023.svg"
+                                    alt="Logo BERNER"
+                                    className="mx-auto max-h-16 max-w-full"
+                                />
+                            </div>
+                            <h2 className="text-xl text-pink-500 text-center mb-4">~ BERNER ~</h2>
+                            <p className="text-pink-300 mb-4 text-center">Webmaster · avril 2025 - aujourd'hui</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                                <a
+                                    href="https://shop.berner.eu/fr-fr/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block text-center p-4 bg-white text-pink-600 hover:bg-pink-50"
+                                >
+                                    <h3 className="font-bold">Boutique BERNER</h3>
+                                    <p className="text-sm">Site e-commerce</p>
+                                </a>
+                                <a
+                                    href="https://blog.berner.eu/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block text-center p-4 bg-white text-pink-600 hover:bg-pink-50"
+                                >
+                                    <h3 className="font-bold">Blog BERNER</h3>
+                                    <p className="text-sm">Articles WordPress</p>
+                                </a>
+                            </div>
+                            <div className="border-2 border-pink-500 p-4">
+                                <p className="mb-2">SmartEdit · CMS SAP · WordPress · JavaScript · SEO</p>
+                                <ul className="list-disc pl-5 text-pink-300">
+                                    <li>Création et mise à jour de contenus marketing avec SmartEdit</li>
+                                    <li>Optimisation de pages marketing pour améliorer leur conversion</li>
+                                    <li>Optimisation SEO des pages créées</li>
+                                    <li>Gestion du blog WordPress et refonte de pages articles</li>
+                                    <li>Optimisation de tableaux JavaScript utilisés pour la création de pages</li>
+                                </ul>
+                            </div>
+                        </article>
+
                         {/* Article 1 */}
-                        <article className="bg-gray-900 p-4 rounded">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
 
                             <a href="https://yellow-studio.vercel.app/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Yellow Studio ~</h2>
@@ -413,99 +357,87 @@ export default function Home() {
                                 <p className="mb-2">React</p>
                                 <p>Site vitrine</p>
                                 <ul className="list-disc pl-5 text-pink-300">
-                                    <li>Design responsive</li>
-                                    <li>Accesibilité RGAA</li>
+                                    <li>Design adaptatif</li>
+                                    <li>Accessibilité (RGAA)</li>
                                     <li>Animations</li>
                                 </ul>
                             </div>
-                            <div className="text-right text-xs text-pink-400">
-                                14 likes ♥
-                            </div>{/* TODO faire vraiment un compteur */}
                         </article>
-                        <article className="bg-gray-900 p-4 rounded">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
 
                             <a href="https://www.surete-ferroviaire.sncf.com/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
-                            <h2 className="text-xl text-pink-500">~ Sûrete SNCF ~</h2>
+                            <h2 className="text-xl text-pink-500">~ Sûreté SNCF ~</h2>
                                 <img
                                     src="/images/sncf-logo.png"
-                                    alt="SNCF SURETEé"
+                                    alt="Logo de la sûreté ferroviaire SNCF"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
                                 />
                             </a>
                             <div className="border-2 border-pink-500 p-4 mb-4">
                                 <p className="mb-2">WordPress</p>
-                                <p>Theme personnalisé Timber</p>
+                                <p>Thème personnalisé avec Timber</p>
                                 <ul className="list-disc pl-5 text-pink-300">
-                                    <li>Design responsive</li>
+                                    <li>Design adaptatif</li>
                                     <li>Création de blocs ACF administrables</li>
-                                    <li>Accesibilité RGAA</li>
+                                    <li>Accessibilité (RGAA)</li>
                                     <li>Optimisation SEO</li>
                                 </ul>
                             </div>
-                            <div className="text-right text-xs text-pink-400">
-                                14 likes ♥
-                            </div>{/* TODO faire vraiment un compteur */}
                         </article>
                         {/* Article 2 */}
-                        <article className="bg-gray-900 p-4 rounded">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
 
                             <a href="https://www.lesmouettesvertes.fr/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Les Mouettes Vertes ~</h2>
                                 <img
                                     src="/images/logo-lmv.png"
-                                    alt="Nutrition & Santé"
+                                    alt="Logo Les Mouettes Vertes"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
                                 />
                             </a>
                             <div className="border-2 border-pink-500 p-4 mb-4">
                                 <p className="mb-2">WordPress</p>
-                                <p>Theme personnalisé Elementor</p>
+                                <p>Thème personnalisé avec Elementor</p>
                                 <ul className="list-disc pl-5 text-pink-300">
-                                    <li>Fiche produit personnalisé</li>
-                                    <li>Accesibilité RGAA</li>
+                                    <li>Fiches produits personnalisées</li>
+                                    <li>Accessibilité (RGAA)</li>
                                     <li>Optimisation SEO</li>
                                 </ul>
                             </div>
-                            <div className="text-right text-xs text-pink-400">
-                                12 likes ♥
-                            </div>{/* TODO faire vraiment un compteur */}
                         </article>
                         {/* Article 3 */}
-                        <article className="bg-gray-900 p-4 rounded">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
 
                             <a href="https://www.nutritionetsante-foodservice.fr/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Nutrition & Santé ~</h2>
                                 <img
                                     src="/images/logons.png"
-                                    alt="Nutrition & Santé"
+                                    alt="Logo Nutrition & Santé"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
                                 />
                             </a>
                             <div className="border-2 border-pink-500 p-4 mb-4">
                                 <p className="mb-2">WordPress</p>
-                                <p>Theme personnalisé Timber</p>
+                                <p>Thème personnalisé avec Timber</p>
                                 <ul className="list-disc pl-5 text-pink-300">
                                     <li>Import catalogue produits via API</li>
-                                    <li>Design responsive</li>
+                                    <li>Design adaptatif</li>
                                     <li>Création de blocs ACF administrables</li>
-                                    <li>Accesibilité RGAA</li>
+                                    <li>Accessibilité (RGAA)</li>
                                     <li>Optimisation SEO</li>
                                 </ul>
                             </div>
-                            <div className="text-right text-xs text-pink-400">
-                                15 likes ♥
-                            </div>{/* TODO faire vraiment un compteur */}
                         </article>
                         {/* Article 4 */}
-                        <article className="bg-gray-900 p-4 rounded">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
                             <a href="https://www.britline.com/" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                             <h2 className="text-xl text-pink-500">~ Crédit Agricole Britline ~</h2>
                                 <img
                                     src="/images/logo.png"
-                                    alt="Nutrition & Santé"
+                                    alt="Logo Crédit Agricole Britline"
                                     className="mx-auto mt-4"
                                     style={{ maxWidth: '100px', maxHeight: '100px' }}
                                 />
@@ -513,16 +445,13 @@ export default function Home() {
                             <div className="border-2 border-pink-500 p-4 mb-4">
                                 <p className="mb-2">Intégration</p>
                                 <ul className="list-disc pl-5 text-pink-300">
-                                    <li>Design responsive</li>
+                                    <li>Design adaptatif</li>
                                     <li>Bootstrap</li>
                                 </ul>
                             </div>
-                            <div className="text-right text-xs text-pink-400">
-                                10 likes ♥
-                            </div>{/* TODO faire vraiment un compteur */}
                         </article>
                         {/* Article 5 */}
-                        <article className="bg-gray-900 p-4 rounded">
+                        <article className="border-2 border-dashed border-pink-500 bg-[#1b1722] p-4 shadow-lg">
                             <a href="https://www.nissannow.be/fr-BE/home" target="_blank" rel="noopener noreferrer" className="block text-center pb-4 bg-white">
                                 <h2 className="text-xl text-pink-500">~ Nissan Now ~</h2>
                                 <img
@@ -537,13 +466,10 @@ export default function Home() {
                                 <p className="mb-2">Intégration</p>
                                 <p>React</p>
                                 <ul className="list-disc pl-5 text-pink-300">
-                                    <li>Design responsive</li>
+                                    <li>Design adaptatif</li>
                                     <li>Bootstrap</li>
                                 </ul>
                             </div>
-                            <div className="text-right text-xs text-pink-400">
-                                13 likes ♥
-                            </div>{/* TODO faire vraiment un compteur */}
                         </article>
 
                     </div>
@@ -553,15 +479,44 @@ export default function Home() {
         }
     ];
 
+    const desktopIconOrder = ['about', 'skills', 'projects', 'contact'];
+    const navigationIcons = desktopIconOrder.map((id) => desktopIcons.find((icon) => icon.id === id));
+    const taskbarWindows = navigationIcons
+        .map((icon) => windows.find((window) => window.id === icon.id))
+        .filter((window) => window !== undefined);
+
     const handleIconClick = (icon) => {
         setSelectedIcon(icon.id);
-        if (!windows.find(w => w.id === icon.id)) {
-            setWindows([...windows, {
+        const existingWindow = windows.find((window) => window.id === icon.id);
+
+        if (existingWindow) {
+            activateWindow(icon.id);
+        } else {
+            setWindows((openWindows) => [...openWindows, {
                 id: icon.id,
                 title: icon.name,
-                content: icon.content
+                content: icon.content,
+                isMinimized: false
             }]);
         }
+    };
+
+    const minimizeWindow = (windowId) => {
+        setWindows((openWindows) => openWindows.map((window) => (
+            window.id === windowId ? { ...window, isMinimized: true } : window
+        )));
+    };
+
+    const activateWindow = (windowId) => {
+        setWindows((openWindows) => {
+            const targetWindow = openWindows.find((window) => window.id === windowId);
+            if (!targetWindow) return openWindows;
+
+            return [
+                ...openWindows.filter((window) => window.id !== windowId),
+                { ...targetWindow, isMinimized: false }
+            ];
+        });
     };
 
     const closeWindow = (windowId) => {
@@ -580,16 +535,16 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/40">  {/* Overlay pour meilleure lisibilité */}
                 {/* Bureau avec icônes */}
                 <nav className="grid grid-cols-1 sm:grid-cols-6 gap-8 p-8 my-4" aria-label="Bureau">
-                    {desktopIcons.map((icon) => (
+                    {navigationIcons.map((icon) => (
                         <button
                             key={icon.id}
-                            className={`w-24 mx-auto rounded text-center text-white cursor-pointer focus:outline-none
-                  ${selectedIcon === icon.id ? 'bg-blue-600/50' : 'hover:bg-blue-600/30'}`}
+                            className={`w-24 min-h-24 mx-auto flex flex-col items-center justify-center gap-1 border px-2 py-2 text-center text-white cursor-pointer focus-visible:outline focus-visible:outline-1 focus-visible:outline-white
+                  ${selectedIcon === icon.id ? 'border-white/60 bg-[#245edb]/75' : 'border-transparent hover:border-white/50 hover:bg-[#245edb]/50'}`}
                             onClick={() => handleIconClick(icon)}
                             aria-label={`Ouvrir ${icon.name}`}
                         >
-                            <div className="text-3xl mb-1" aria-hidden="true">{icon.icon}</div>
-                            <div className="text-sm break-words">{icon.name}</div>
+                            <XPDesktopIcon name={icon.id} className="h-10 w-10 drop-shadow-md" />
+                            <span className="text-sm break-words [text-shadow:1px_1px_2px_#000]">{icon.name}</span>
                         </button>
                     ))}
                 </nav>
@@ -600,6 +555,10 @@ export default function Home() {
                         key={window.id}
                         title={window.title}
                         onClose={() => closeWindow(window.id)}
+                        onMinimize={() => minimizeWindow(window.id)}
+                        onActivate={() => activateWindow(window.id)}
+                        isMinimized={window.isMinimized}
+                        icon={window.id}
                         initialPosition={{ x: 100 + index * 30, y: 100 + index * 30 }}
                         isWizzing={window.id === 'contact' && isWizzing}
                         aria-labelledby={`window-title-${window.id}`}
@@ -610,23 +569,23 @@ export default function Home() {
                 ))}
 
                 {/* Barre des tâches Windows XP */}
-                <div className="fixed bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-[#245EDC] to-[#0078D7] flex items-center px-2 shadow-lg z-50" role="menubar" aria-label="Barre des tâches">
-                    {/* Menu Démarrer */}
+                <div className="fixed bottom-0 left-0 right-0 h-12 border-t border-[#7ab7f5] bg-gradient-to-b from-[#3b8cf4] via-[#1767d4] to-[#0753bb] flex items-center px-2 shadow-[0_-2px_8px_rgba(0,0,0,0.35)] z-50" role="menubar" aria-label="Barre des tâches Arthur XP">
+                    {/* Menu Débuter */}
                     <div className="relative">
                         <button
                             onClick={() => setStartMenuOpen(!startMenuOpen)}
-                            className="h-10 px-4 py-2 flex items-center gap-2 font-bold text-white bg-gradient-to-r from-[#378EE5] to-[#378EE5] hover:from-[#3687D9] hover:to-[#3687D9] rounded focus:outline-none"
+                            className="h-10 min-w-32 px-3 flex items-center gap-2 border border-[#8acb75] border-b-[#176116] rounded-r-xl rounded-l-md font-bold text-white bg-gradient-to-b from-[#68c44a] via-[#3caa2d] to-[#19720f] shadow-[inset_0_1px_#c1f4a4,1px_0_3px_rgba(0,0,0,0.45)] hover:from-[#7bd65b] hover:via-[#49b93a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                             aria-controls="start-menu"
                             aria-expanded={startMenuOpen}
-                            aria-label="Ouvrir le menu Démarrer"
+                            aria-label="Ouvrir le menu Débuter"
                         >
-                            <span className="text-xl" aria-hidden="true">🪟</span>
-                            Démarrer
+                            <XPDesktopIcon name="door" className="h-7 w-7 drop-shadow" />
+                            Débuter
                         </button>
 
                         {startMenuOpen && (
                             <div id="start-menu" className="absolute bottom-full left-0 w-64 bg-white border-2 border-[#0078D7] rounded-t-lg shadow-xl mb-1" role="menu">
-                                {desktopIcons.map((icon) => (
+                                {navigationIcons.map((icon) => (
                                     <button
                                         key={icon.id}
                                         onClick={() => {
@@ -636,7 +595,7 @@ export default function Home() {
                                         className="w-full flex items-center gap-2 p-2 hover:bg-[#E5F3FF] text-left focus:outline-none"
                                         role="menuitem"
                                     >
-                                        <span className="text-2xl" aria-hidden="true">{icon.icon}</span>
+                                        <XPDesktopIcon name={icon.id} className="h-7 w-7" />
                                         <span>{icon.name}</span>
                                     </button>
                                 ))}
@@ -646,38 +605,73 @@ export default function Home() {
 
                     {/* Raccourcis rapides */}
                     <div className="hidden sm:flex items-center gap-2 ml-4 border-l border-[#1D4AAD] pl-4" aria-label="Raccourcis rapides">
-                        {desktopIcons.map(icon => (
+                        {navigationIcons.map(icon => (
                             <button
                                 key={icon.id}
                                 onClick={() => handleIconClick(icon)}
-                                className="p-2 hover:bg-[#3687D9] rounded focus:outline-none"
+                                className="p-1.5 hover:bg-[#3b80d8] focus-visible:outline focus-visible:outline-1 focus-visible:outline-white"
                                 aria-label={`Ouvrir ${icon.name}`}
                             >
-                                <span aria-hidden="true">{icon.icon}</span>
+                                <XPDesktopIcon name={icon.id} className="h-6 w-6" />
                             </button>
                         ))}
                     </div>
 
                     {/* Fenêtres ouvertes */}
                     <div className="flex-1 flex items-center gap-2 ml-2" aria-label="Fenêtres ouvertes">
-                        {windows.map(window => (
+                        {taskbarWindows.map(window => (
                             <button
                                 key={window.id}
-                                className="h-8 px-3 text-white bg-[#3687D9] hover:bg-[#3C9BF7] rounded flex items-center gap-2 focus:outline-none"
+                                onClick={() => {
+                                    const topWindow = [...windows].reverse().find((openWindow) => !openWindow.isMinimized);
+                                    if (window.isMinimized || topWindow?.id !== window.id) {
+                                        activateWindow(window.id);
+                                    } else {
+                                        minimizeWindow(window.id);
+                                    }
+                                }}
+                                className={`h-8 max-w-48 px-2.5 border border-[#1853ad] border-t-[#78baff] text-white flex items-center gap-2 shadow-inner focus-visible:outline focus-visible:outline-1 focus-visible:outline-white ${window.isMinimized ? 'bg-[#2465bd] hover:bg-[#347bcf]' : 'bg-[#134b9e]'}`}
                                 aria-label={`Fenêtre ${window.title}`}
                             >
-                                <span className="text-lg mr-1" aria-hidden="true">{desktopIcons.find(i => i.id === window.id)?.icon}</span>
-                                <span>{window.title}</span>
+                                <XPDesktopIcon name={window.id} className="h-5 w-5 shrink-0" />
+                                <span className="truncate">{window.title}</span>
                             </button>
                         ))}
                     </div>
 
                     {/* Horloge */}
-                    <div className="px-4 text-white" aria-live="polite">
+                    <div className="h-9 ml-2 px-4 border-l border-[#74a9e4] bg-[#124a9a]/40 flex items-center text-white" aria-live="polite">
                         {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
                 </div>
             </div>
+
+            {isBooting && (
+                <div
+                    className="xp-boot-screen fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05070b] text-white"
+                    role="status"
+                    aria-label="Démarrage d'Arthur XP"
+                    aria-live="polite"
+                >
+                    <div className="flex items-center gap-4">
+                        <XPDesktopIcon name="door" className="h-14 w-14 drop-shadow-[0_0_14px_rgba(80,160,255,0.7)]" />
+                        <div className="leading-none">
+                            <p className="text-sm text-gray-300">Arthur Genestier</p>
+                            <p className="mt-1 text-4xl font-semibold tracking-[0.02em]">
+                                Arthur<span className="ml-1 text-[#f27922]">XP</span>
+                            </p>
+                            <p className="mt-2 text-right text-sm italic text-gray-300">Édition Genestier</p>
+                        </div>
+                    </div>
+
+                    <div className="absolute left-1/2 top-[68%] flex w-60 -translate-x-1/2 flex-col items-center gap-3">
+                        <div className="h-3 w-full overflow-hidden border border-[#6d7480] bg-black p-[2px] shadow-[inset_0_1px_3px_#000]">
+                            <div className="xp-boot-progress h-full w-1/3 bg-gradient-to-r from-[#1769c2] via-[#8cc8ff] to-[#1769c2]" />
+                        </div>
+                        <p className="text-xs text-gray-300">Démarrage du bureau...</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
