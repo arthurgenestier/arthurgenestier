@@ -97,7 +97,7 @@ export default function Window({ title, icon, onClose, onMinimize, onActivate, i
   return (
     <div 
       className={`absolute flex flex-col overflow-hidden border-2 border-[#0c4a9b] bg-[#ece9d8] shadow-[2px_2px_8px_rgba(0,0,0,0.55)] rounded-t-lg ${isMinimized ? 'hidden' : ''} ${
-        isMaximized ? 'fixed inset-0' : ''
+        isMaximized ? 'fixed inset-x-0 top-0 bottom-12' : ''
       } ${isWizzing ? 'animate-wiggle' : ''}`}
       onMouseDown={onActivate}
       style={!isMaximized ? { 
