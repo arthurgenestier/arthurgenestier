@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import XPDesktopIcon from './XPDesktopIcon';
 
 export default function Window({ title, icon, onClose, onMinimize, onActivate, isMinimized = false, children, initialPosition = { x: 100, y: 100 }, isWizzing = false }) {
+  const windowRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [resizeDirection, setResizeDirection] = useState('');
@@ -34,9 +35,12 @@ export default function Window({ title, icon, onClose, onMinimize, onActivate, i
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (isDragging && !isMaximized) {
+        const bounds = windowRef.current?.getBoundingClientRect();
+        if (!bounds) return;
+
         setPosition({
-          x: e.clientX - dragOffset.x,
-          y: e.clientY - dragOffset.y
+          x: Math.max(0, Math.min(e.clientX - dragOffset.x, window.innerWidth - bounds.width)),
+          y: Math.max(0, Math.min(e.clientY - dragOffset.y, window.innerHeight - 48 - bounds.height))
         });
       }
       if (isResizing && !isMaximized) {
@@ -96,6 +100,7 @@ export default function Window({ title, icon, onClose, onMinimize, onActivate, i
 
   return (
     <div 
+      ref={windowRef}
       className={`absolute flex flex-col overflow-hidden border-2 border-[#0c4a9b] bg-[#ece9d8] shadow-[2px_2px_8px_rgba(0,0,0,0.55)] rounded-t-lg ${isMinimized ? 'hidden' : ''} ${
         isMaximized ? 'fixed inset-x-0 top-0 bottom-12' : ''
       } ${isWizzing ? 'animate-wiggle' : ''}`}
