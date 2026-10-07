@@ -529,8 +529,6 @@ export default function Home() {
             style={{
                 backgroundImage: `url('/images/xplandscapeperso.jpg')`,
             }}
-            role="application"
-            aria-label="Interface de bureau"
         >
             <div className="absolute inset-0 bg-black/40">  {/* Overlay pour meilleure lisibilité */}
                 {/* Bureau avec icônes */}
@@ -548,6 +546,14 @@ export default function Home() {
                         </button>
                     ))}
                 </nav>
+
+                <main className="absolute bottom-16 left-6 right-6 z-10 max-w-2xl text-white [text-shadow:0_2px_4px_rgba(0,0,0,0.95)] md:bottom-20" aria-labelledby="desktop-profile-title">
+                    <h1 id="desktop-profile-title" className="text-2xl font-bold leading-tight md:text-3xl">Arthur Genestier</h1>
+                    <p className="mt-1 text-base font-semibold md:text-lg">Développeur front-end · Intégrateur web · Webmaster</p>
+                    <p className="mt-2 max-w-xl text-sm leading-relaxed md:text-base">
+                        Je crée et optimise des sites et des pages web accessibles, adaptatifs et pensés pour le référencement naturel. J’interviens de l’intégration front-end à la gestion des contenus.
+                    </p>
+                </main>
 
                 {/* Fenêtres */}
                 {windows.map((window, index) => (
